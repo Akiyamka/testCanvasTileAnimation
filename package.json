@@ -1,0 +1,17 @@
+{
+  "name": "temp",
+  "version": "1.0.0",
+  "description": "map animation titles experiment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx live-server"
+  },
+  "author": "akiyamka",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "live-server": "^1.2.0"
+  }
+}

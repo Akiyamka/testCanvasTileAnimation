@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Experiment</title>
+  <script src="https://unpkg.com/hyperhtml@latest/min.js"></script>
+  <script src="https://unpkg.com/merge-images"></script>
+  <script src="./index.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body {
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIElEQVQoU2NkYGCQYmBgeMZAADCOKsQXQiQHD6HwZgAAcEsJJW9an/QAAAAASUVORK5CYII=) repeat;
+    }
+
+    .view {
+      position: relative;
+    }
+
+    .futureFrame {
+      position: absolute;
+      /* background: red; */
+      top: 0;
+      z-index: 2;
+    }
+
+    .curFrame {
+      z-index: 1;
+      /* background: green; */
+    }
+
+    .prevFrame {
+      position: absolute;
+      top: 0;
+      /* background: black; */
+      z-index: -1;
+    }
+
+    .anim-out {
+      animation: fade-out 3s 1
+    }
+
+    .anim-in {
+      animation: fade-in 3s 1
+    }
+
+    @keyframes fade-out {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+</html>
