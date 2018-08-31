@@ -1,0 +1,68 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIElEQVQoU2NkYGCQYmBgeMZAADCOKsQXQiQHD6HwZgAAcEsJJW9an/QAAAAASUVORK5CYII=) repeat;
+  }
+
+  #app, #app2 {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    border: 1px solid silver;
+    margin: 8px
+  }
+
+  .view {
+    position: relative;
+  }
+
+  .futureFrame {
+    position: absolute;
+    /* background: red; */
+    top: 0;
+    z-index: 2;
+  }
+
+  .curFrame {
+    /* background: green; */
+  }
+
+  .prevFrame {
+    position: absolute;
+    top: 0;
+    /* background: black; */
+    z-index: -1;
+  }
+
+  .anim-out {
+    opacity: 0;
+    transition: opacity 3s linear;
+    /* animation: fade-out 3s 1; */
+    z-index: -1;
+    /* animation-fill-mode: forwards; */
+  }
+
+  .anim-in {
+    opacity: 1;
+    transition: opacity 3s linear;
+    /* animation: fade-in 3s 1; */
+    z-index: 1;
+    /* animation-fill-mode: forwards; */
+  }
+
+  @keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
