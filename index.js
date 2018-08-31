@@ -107,57 +107,6 @@ function startApp() {
       this.fadeFactor++;
     }
 
-    // // Create task for merge two images and return promise
-    // getRenderTask(nextTileOpacity) {
-    //   const currentTile = this.currentTile;
-    //   const futureTile = this.futureTile;
-
-    //   return mergeImages([
-    //     { src: currentTile, opacity: 1 },
-    //     { src: futureTile, opacity: nextTileOpacity },
-    //   ]);
-    // }
-
-    // addFadeInAnimationToSequence() {
-    //   const iterations = 30;
-
-    //   let n = 0;
-    //   while(n < 1) {
-    //     n += 1 / iterations;
-    //     const task = this.getRenderTask(n);
-    //     this.sequence.push(task);
-    //   }
-    // }
-
-    // renderFrame() {
-    //   if (this.lockRender || this.sequence.length == 0) return;
-    //   this.lockRender = true;
-    //   const renderTask = this.sequence.shift();
-
-    //   renderTask.then(newImage => {
-
-    //     this.setState(state => ({
-    //         ...state,
-    //         mixedTile: newImage
-    //       })
-    //     );
-
-    //     this.lockRender = false;
-    //   });
-    // }
-
-    // showNextTile() {
-    //   this.addFadeInAnimationToSequence();
-    //   // Maybe we must wait until animation ended ?
-    //   this.setState(state => {
-    //     const nextTile = Number(state.currentTileIndex) + 1;
-    //     return {
-    //       ...state,
-    //       currentTileIndex: nextTile > this.maxTiles ? 0 : nextTile,
-    //     }
-    //   });
-    // }
-
     onchange(event) {
       this.animateFade()
       this.setState(state => {
@@ -167,7 +116,6 @@ function startApp() {
           isPaused: true,
         }
       });
-
     }
 
     onclick() {
@@ -186,20 +134,16 @@ function startApp() {
     }
 
     render() {
-      // <img class="prevFrame anim-out" src=${this.previosFrame} title="prevFrame"/>
       return this.html`
       <div class="view" onconnected=${this}>
         ${this.canvas}
       </div>
-
 
       <input type="range" name="timeline" id="timeline" min="0" max=${this.maxTiles} value=${this.state.currentTileIndex} onchange=${this} />
       <div>
         Frame: ${this.state.currentTileIndex}
       </div>
       <button style="margin: 18px; padding: 8px 12px" onclick="${this}"> ${this.state.isPaused ? 'Start' : 'Stop'}</button>`
-
-
     }
   }
 
