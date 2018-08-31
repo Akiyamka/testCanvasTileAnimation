@@ -1,68 +1,79 @@
-html, body {
-    margin: 0;
-    height: 100%;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-  }
+   html, body {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-flow: column wrap;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
 
-  body {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIElEQVQoU2NkYGCQYmBgeMZAADCOKsQXQiQHD6HwZgAAcEsJJW9an/QAAAAASUVORK5CYII=) repeat;
-  }
+    body {
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIElEQVQoU2NkYGCQYmBgeMZAADCOKsQXQiQHD6HwZgAAcEsJJW9an/QAAAAASUVORK5CYII=) repeat;
+    }
 
-  #app, #app2 {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    border: 1px solid silver;
-    margin: 8px
-  }
+    #app, #app2 {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      border: 2px solid silver;
+      margin: 8px
+    }
 
-  .view {
-    position: relative;
-  }
+    .view {
+      position: relative;
+    }
 
-  .futureFrame {
-    position: absolute;
-    /* background: red; */
-    top: 0;
-    z-index: 2;
-  }
+    .futureFrame {
+      position: absolute;
+      /* background: red; */
+      top: 0;
+      z-index: 2;
+    }
 
-  .curFrame {
-    /* background: green; */
-  }
+    .curFrame {
+      /* background: green; */
+    }
 
-  .prevFrame {
-    position: absolute;
-    top: 0;
-    /* background: black; */
-    z-index: -1;
-  }
+    .prevFrame {
+      position: absolute;
+      top: 0;
+      /* background: black; */
+      z-index: -1;
+    }
 
-  .anim-out {
-    opacity: 0;
-    transition: opacity 3s linear;
-    /* animation: fade-out 3s 1; */
-    z-index: -1;
-    /* animation-fill-mode: forwards; */
-  }
+    .anim-out {
+      animation: fade-out 6s infinite;
+      animation-timing-function: linear;
+    }
 
-  .anim-in {
-    opacity: 1;
-    transition: opacity 3s linear;
-    /* animation: fade-in 3s 1; */
-    z-index: 1;
-    /* animation-fill-mode: forwards; */
-  }
+    .anim-in {
+      animation: fade-in 6s infinite;
+      animation-timing-function: linear;
+    }
 
-  @keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
+    @keyframes fade-in {
+      0%   { opacity: 0; z-index: 1 }
+      20%  { opacity: 0.5; }
+      30%  { opacity: 1;   }
+      50%  { opacity: 1; z-index: 1 }
+      /* -------- Switch ! -------- */
+      60%  { opacity: 1;   z-index: 0 }
+      80%  { opacity: 1;   }
+      90%  { opacity: 0.5; }
+      100% { opacity: 0;   z-index: 0 }
+      /* ----- GO TO START ! ----- */
+    }
 
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+    @keyframes fade-out {
+        0%   { opacity: 1; z-index: 0 }
+        30%  { opacity: 1;   }
+        40%  { opacity: 0.5; }
+        50%  { opacity: 0; z-index: 0 }
+        /* -------- Switch ! -------- */
+        60%  { opacity: 0; z-index: 1 }
+        70%  { opacity: 0.5; }
+        80%  { opacity: 1;   }
+        100% { opacity: 1; z-index: 1 }
+        /* ----- GO TO START ! ----- */
+    }

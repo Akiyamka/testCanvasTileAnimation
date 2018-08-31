@@ -9,8 +9,8 @@ function startApp() {
       super();
       this.tiles = tiles;
       this.maxTiles = tiles.length - 1;
-      this.topImageLayer = wire()`<img src="./frames/1.png" alt=""/ style="position: absolute">`;
-      this.bottomImageLayer = wire()`<img src="./frames/2.png" alt=""/>`
+      this.topImageLayer = wire()`<img src="./frames/1.png" class="img" alt="" style="position: absolute" />`;
+      this.bottomImageLayer = wire()`<img src="./frames/2.png" class="img" alt=""/>`
       this.fadeFactor = 0; // incriment from 0 -> 100 at animation
       this.imagesStore = []
       this.setState({
@@ -75,30 +75,7 @@ function startApp() {
 
     }
 
-    draw(img, animationName) {
-      img.classList.remove(animationName);
-      void img.offsetWidth;
-      img.classList.add(animationName);
-    }
-
-    animateFade() {
-      this.topImageLayer.src = this.currentImage;
-      this.bottomImageLayer.src = this.futureImage;
-      console.log('TCL: Counter -> animateFade -> topImageLayer.src', this.topImageLayer.src);
-      this.draw(this.bottomImageLayer, 'anim-in')
-      setTimeout(this.draw.bind(this, this.topImageLayer, 'anim-out'), 3000)
-      // this.draw(this.topImageLayer, 'anim-out')
-      this.setState(state => {
-        const newIndex = state.currentTileIndex + 1;
-        return {
-          ...state,
-          currentTileIndex: newIndex > this.maxTiles ? 0 : newIndex
-        }
-      });
-    }
-
     onchange(event) {
-      this.animateFade()
       this.setState(state => {
         const newIndex = event.target.value - 1
         return {
@@ -117,15 +94,69 @@ function startApp() {
       });
 
       if (this.state.isPaused) {
-        window.clearInterval(this.animation);
+        this.stopAnimation();
       } else {
-        this.animation = window.setInterval(this.animateFade.bind(this), 6000);
+        this.startAnimation();
       }
     }
 
+    startAnimation(animationTiming) {
+      this.animationCycle(6000);
+    }
+
+    animationCycle(animationTiming) {
+      this.bottomImageLayer.classList.add('anim-in');
+      this.topImageLayer.classList.add('anim-out');
+
+      setTimeout(() => {
+        this.switchToNextImage(this.topImageLayer);
+        this.topAnimation = setInterval(this.switchToNextImage.bind(this, this.topImageLayer), animationTiming);
+        // this.topAnimation = setTimeout(this.switchToNextImage.bind(this, this.topImageLayer), animationTiming);
+      }, animationTiming / 2);
+      this.bottomAnimation = setInterval(this.switchToNextImage.bind(this, this.bottomImageLayer), animationTiming);
+      // this.bottomAnimation = setTimeout(this.switchToNextImage.bind(this, this.bottomImageLayer), animationTiming);
+    }
+
+    switchToNextImage(layer) {
+      this.nextStep();
+      layer.src = this.futureImage;
+    }
+
+    nextStep() {
+      this.setState(state => {
+        const newIndex = state.currentTileIndex + 1;
+        return {
+          ...state,
+          currentTileIndex: newIndex > this.maxTiles ? 0 : newIndex
+        }
+      });
+    }
+
+    draw(img, animationName) {
+      img.classList.remove(animationName);
+      img.classList.add(animationName);
+    }
+
+    animateFade() {
+      this.topImageLayer.src = this.currentImage;
+      this.bottomImageLayer.src = this.futureImage;
+
+      this.draw(this.bottomImageLayer, 'anim-in')
+      // setTimeout(this.draw.bind(this, this.topImageLayer, 'anim-out'), 3000)
+      // this.draw(this.topImageLayer, 'anim-out')
+      this.setState(state => {
+        const newIndex = state.currentTileIndex + 1;
+        return {
+          ...state,
+          currentTileIndex: newIndex > this.maxTiles ? 0 : newIndex
+        }
+      });
+    }
+
+
+
     render() {
       return this.html`
-        <hr>
         <div class="view" onconnected=${this}>
           ${this.topImageLayer}
           ${this.bottomImageLayer}
